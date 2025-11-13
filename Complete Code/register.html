@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Register</title>
+</head>
+<body>
+<nav>
+  <a href="register.html">Register</a> |
+  <a href="login.html">Login</a> |
+  <a href="expense.html">Add Expense</a>
+</nav>
+
+<section class="hero rounded"></section>
+
+<h1>Register</h1>
+
+<!-- Added id="registerForm" and ids on inputs -->
+<form id="registerForm" action="#" method="post">
+  <label>First Name
+    <input type="text" name="first_name" id="first_name" required>
+  </label><br>
+
+  <label>Last Name
+    <input type="text" name="last_name" id="last_name" required>
+  </label><br>
+
+  <label>Username or Email
+    <input type="text" name="username_or_email" id="username_or_email" required>
+  </label><br>
+
+  <label>Password
+    <input type="password" name="password" id="password" required>
+  </label><br>
+
+  <input type="submit" value="Register">
+</form>
+
+<!-- New: JS for assignment 5 -->
+<script src="register.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Add Expense</title>
+</head>
+<body>
+<nav>
+  <a href="register.html">Register</a> |
+  <a href="login.html">Login</a> |
+  <a href="expense.html">Add Expense</a>
+</nav>
+
+<section class="hero rounded"></section>
+
+<h1>Add Expense</h1>
+
+<!-- Added id="expenseForm" and id on input -->
+<form id="expenseForm" action="#" method="post">
+  <label>Expense (text)
+    <input type="text" name="expense_text" id="expense_text" required>
+  </label><br>
+
+  <input type="submit" value="Save">
+</form>
+
+<!-- New: JS for assignment 5 -->
+<script src="expense.js"></script>
+</body>

@@ -1,0 +1,88 @@
+html, body {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+  background-color: #EAF6FF; 
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+nav {
+  background-color: #F5E6C8; 
+  border: 5px solid black;    
+  padding: 10px;              
+  margin: 20px;             
+  width: 90%;
+  text-align: center;
+}
+
+h1 {
+  background-color: #F5E6C8;  
+  border: 5px solid black;    
+  padding: 10px;
+  margin: 20px;
+  display: inline-block;   
+  width: 45%;               
+  text-align: center;
+}
+
+form {
+  background-color: #FFF3D6;  
+  border: 5px solid black;    
+  padding: 10px;
+  margin: 20px;
+  display: inline-block;     
+  width: 45%;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 10px;
+  margin-top: 5px;
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  border: 5px solid black;  
+  background-color: #F5E6C8;
+  cursor: pointer;
+}
+
+
+.hero {
+
+  background-image: url("../Images/Beach Image.jpg");
+  background-size: cover;       
+  background-position: center;  
+  background-repeat: no-repeat; 
+  width: 90%;
+  height: 250px;                
+  border: 5px solid black;
+  margin: 20px;
+}
+
+img.center {
+  display: block;         
+  margin-left: auto;
+  margin-right: auto;     
+  width: 60%;             
+  border: 5px solid black;
+  padding: 10px;
+}
+
+
+.rounded {
+  border-radius: 10px;
+}
