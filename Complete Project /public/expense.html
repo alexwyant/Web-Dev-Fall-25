@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Expense</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <a href="register.html">Register</a> |
+    <a href="login.html">Login</a> |
+    <a href="expense.html">Add Expense</a>
+  </nav>
+
+  <main class="page">
+    <section class="hero rounded">
+      <h1>Add Expense</h1>
+      <p>Quickly log a new expense for your budget.</p>
+    </section>
+
+    <section class="form-section rounded">
+      <h2>New Expense</h2>
+      <form id="expenseForm" action="#" method="post">
+        <label for="expense_text">
+          <span>Expense (text)</span>
+          <input type="text" name="expense_text" id="expense_text" required>
+        </label>
+
+        <input type="submit" value="Save Expense">
+      </form>
+    </section>
+  </main>
+  <script src="expense.js"></script>
+</body>
+</html>
