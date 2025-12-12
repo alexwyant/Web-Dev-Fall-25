@@ -1,17 +1,60 @@
-// server/routes/user.js
+const express = require("express");
+const User = require("../models/user");
+const router = express.Router();
 
-const express = require('express')
-const router = express.Router()
+router
 
-// Import the user model so we have access to its functions
-const User = require('../models/user')
-
-// GET /users
-// This route returns all users from our "database"
-router.get('/', (req, res) => {
-  const users = User.getUsers()
-  res.json(users)
+// READ - get all users
+.get("/getUsers", async (req, res) => {
+  try {
+    const users = await User.getAllUsers();
+    res.send(users);
+  } catch (err) {
+    res.status(401).send({ message: err.message });
+  }
 })
 
-// Export the router so index.js can use it
-module.exports = router
+// READ - login
+.post("/login", async (req, res) => {
+  try {
+    const user = await User.login(req.body);
+    res.send({ ...user, Password: undefined });
+  } catch (err) {
+    res.status(401).send({ message: err.message });
+  }
+})
+
+// CREATE - register
+.post("/register", async (req, res) => {
+  try {
+    const user = await User.register(req.body);
+    res.send({ ...user, Password: undefined });
+  } catch (err) {
+    res.status(401).send({ message: err.message });
+  }
+})
+
+// UPDATE - update password (by UserID)
+.put("/updatePassword/:userId", async (req, res) => {
+  try {
+    const updatedUser = await User.updatePassword(
+      req.params.userId,
+      req.body.newPassword
+    );
+    res.send({ ...updatedUser, Password: undefined });
+  } catch (err) {
+    res.status(401).send({ message: err.message });
+  }
+})
+
+// DELETE - delete user (by UserID)
+.delete("/deleteUser/:userId", async (req, res) => {
+  try {
+    await User.deleteUser(req.params.userId);
+    res.send({ message: "User deleted" });
+  } catch (err) {
+    res.status(401).send({ message: err.message });
+  }
+});
+
+module.exports = router;

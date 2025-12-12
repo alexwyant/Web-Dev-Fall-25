@@ -1,13 +1,13 @@
-// specify we want to use express
-const express = require('express')
-const app = express()
+require('dotenv').config();
 
-app.use(express.json())
+const express = require('express');
+const app = express();
 
-const userRoutes = require("./server/routes/user")
-// const recipeRoutes = require("./server/routes/recipe") // ← comment this out
+app.use(express.json());
 
-// CORS middleware
+const userRoutes = require('./server/routes/user');
+const expenseRoutes = require('./server/routes/expense'); 
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");  
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
@@ -15,8 +15,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use("/users", userRoutes)
-// app.use("/recipes", recipeRoutes) // ← this is already commented, leave it
+app.use('/users', userRoutes);
+app.use('/expenses', expenseRoutes);
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`Server started on port ${PORT}!!`))
