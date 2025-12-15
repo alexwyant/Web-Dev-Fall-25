@@ -12,4 +12,14 @@ router.post("/create", async (req, res) => {
   }
 })
 
+// READ - all expenses for a user
+router.get("/user/:userId", async (req, res) => {
+  try {
+    const expenses = await Expense.getExpensesByUserId(req.params.userId)
+    res.send(expenses)
+  } catch (err) {
+    res.status(401).send({ message: err.message })
+  }
+})
+
 module.exports = router
