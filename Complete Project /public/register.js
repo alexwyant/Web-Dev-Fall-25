@@ -1,13 +1,27 @@
-const registerForm = document.getElementById("registerForm");
+const registerForm = document.getElementById("registerForm")
 
-registerForm.addEventListener("submit", function (event) {
-  event.preventDefault(); // stops page from reloading
+registerForm.addEventListener("submit", async function (event) {
+  event.preventDefault()
 
   const user = {
-    firstName: document.getElementById("first_name").value,
-    lastName: document.getElementById("last_name").value,
-    usernameOrEmail: document.getElementById("username_or_email").value,
+    username: document.getElementById("username").value,
+    email: document.getElementById("email").value,
     password: document.getElementById("password").value
-  };
-  console.log(user);
-});
+  }
+
+  const response = await fetch("/users/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user)
+  })
+
+  const data = await response.json()
+
+  if (data.message) {
+    alert(data.message)
+    return
+  }
+
+  localStorage.setItem("user", JSON.stringify(data))
+  window.location.href = "expense.html"
+})

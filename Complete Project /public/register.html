@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Register</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <nav>
@@ -20,31 +20,28 @@
 
     <section class="form-section rounded">
       <h2>Register</h2>
+
       <form id="registerForm" action="#" method="post">
-        <label for="first_name">
-          <span>First Name</span>
-          <input type="text" name="first_name" id="first_name" required>
+        <label>
+          <span>Username</span>
+          <input type="text" id="username" required />
         </label>
 
-        <label for="last_name">
-          <span>Last Name</span>
-          <input type="text" name="last_name" id="last_name" required>
+        <label>
+          <span>Email</span>
+          <input type="text" id="email" required />
         </label>
 
-        <label for="username_or_email">
-          <span>Username or Email</span>
-          <input type="text" name="username_or_email" id="username_or_email" required>
-        </label>
-
-        <label for="password">
+        <label>
           <span>Password</span>
-          <input type="password" name="password" id="password" required>
+          <input type="password" id="password" required />
         </label>
 
-        <input type="submit" value="Register">
+        <input type="submit" value="Register" />
       </form>
     </section>
   </main>
+
   <script src="register.js"></script>
 </body>
 </html>

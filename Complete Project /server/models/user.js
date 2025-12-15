@@ -1,5 +1,5 @@
 // 1. import con to access database
-const con = require("./db_connect");
+const con = require("./db_connect")
 
 // 2. create function that creates entity table if doesn't exist already
 async function createUserTable() {
@@ -11,89 +11,81 @@ async function createUserTable() {
       Password VARCHAR(255) NOT NULL,
       CONSTRAINT userPK PRIMARY KEY (UserID)
     );
-  `;
-  await con.query(sql);
+  `
+  await con.query(sql)
 }
 
 // 3. call function that creates table
-createUserTable();
+createUserTable()
 
-// 4. CRUD / auth functions
+// 4. CRUD functions
 
-// READ - get all users
+// READ – get all users
 async function getAllUsers() {
   let sql = `
     SELECT * FROM User;
-  `;
-  return await con.query(sql);
+  `
+  return await con.query(sql)
 }
 
-// helper - check if user exists by username
+// helper – get user by username OR email
 async function userExists(user) {
+  const identifier = user.username || user.identifier
+
   let sql = `
     SELECT * FROM User
-    WHERE Username="${user.username}";
-  `;
-  let cuser = await con.query(sql);
-  return cuser[0];
+    WHERE Username = ? OR Email = ?
+    LIMIT 1;
+  `
+  const [rows] = await con.query(sql, [identifier, identifier])
+  return rows[0]
 }
 
-// READ - login
+// helper – check email uniqueness
+async function emailExists(user) {
+  let sql = `
+    SELECT * FROM User
+    WHERE Email = ?
+    LIMIT 1;
+  `
+  const [rows] = await con.query(sql, [user.email])
+  return rows[0]
+}
+
+// READ – login
 async function login(user) {
-  let cuser = await userExists(user);
+  let cuser = await userExists(user)
 
-  if (!cuser) throw Error("Username does not exist!");
-  if (user.password !== cuser.Password) throw Error("Password incorrect!");
+  if (!cuser) throw Error("User does not exist!")
+  if (user.password !== cuser.Password) throw Error("Password incorrect!")
 
-  return cuser;
+  return {
+    UserID: cuser.UserID,
+    Username: cuser.Username,
+    Email: cuser.Email
+  }
 }
 
-// CREATE - register
+// CREATE – register
 async function register(user) {
-  let cuser = await userExists(user);
-  if (cuser) throw Error("Username already in use!");
+  let existingUser = await userExists({ username: user.username })
+  if (existingUser) throw Error("Username already in use!")
+
+  let existingEmail = await emailExists(user)
+  if (existingEmail) throw Error("Email already in use!")
 
   let sql = `
     INSERT INTO User (Username, Password, Email)
-    VALUES("${user.username}", "${user.password}", "${user.email}");
-  `;
-  await con.query(sql);
+    VALUES (?, ?, ?);
+  `
+  await con.query(sql, [user.username, user.password, user.email])
 
-  return await userExists(user);
+  const created = await userExists({ identifier: user.username })
+  return {
+    UserID: created.UserID,
+    Username: created.Username,
+    Email: created.Email
+  }
 }
 
-// UPDATE - update a user password by UserID  (this gives you a true CRUD "U")
-async function updatePassword(userId, newPassword) {
-  let sql = `
-    UPDATE User
-    SET Password="${newPassword}"
-    WHERE UserID="${userId}";
-  `;
-  await con.query(sql);
-
-  // return updated user (optional)
-  let userSql = `
-    SELECT * FROM User
-    WHERE UserID="${userId}";
-  `;
-  let result = await con.query(userSql);
-  return result[0];
-}
-
-// DELETE - delete user by UserID (true CRUD "D")
-async function deleteUser(userId) {
-  let sql = `
-    DELETE FROM User
-    WHERE UserID="${userId}";
-  `;
-  return await con.query(sql);
-}
-
-// 5. export all functions so accessible by corresponding route file
-module.exports = {
-  getAllUsers,
-  login,
-  register,
-  updatePassword,
-  deleteUser
-};
+module.exports = { getAllUsers, login, register }
