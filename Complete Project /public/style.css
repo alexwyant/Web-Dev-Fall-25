@@ -3,7 +3,13 @@ html, body {
   font-size: 18px;
   margin: 0;
   padding: 0;
-  background-color: #EAF6FF;
+
+  /* Beach background */
+  background-image: url("Images/Beach Image.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 /* Center everything in the body */
@@ -11,12 +17,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  /* Keep content readable */
+  min-height: 100vh;
 }
 
 /* Top navigation */
 nav {
   width: 100%;
-  background-color: #F5E6C8;
+  background-color: rgba(245, 230, 200, 0.95); /* slightly transparent */
   padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.15);
@@ -33,15 +42,35 @@ nav a:hover {
   text-decoration: underline;
 }
 
+/* Logout button styling (since we added it) */
+nav button {
+  margin-left: 10px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  background-color: #444;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+nav button:hover {
+  background-color: #222;
+}
+
 main.page {
   width: 100%;
   max-width: 800px;
   padding: 20px;
+
+  /* White overlay so text is readable on the photo */
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 12px;
+  margin: 30px auto;
 }
 
 /* Hero section at the top of each page */
 .hero {
-  background-color: #D6EAF8;
+  background-color: rgba(214, 234, 248, 0.90);
   padding: 20px;
   margin-bottom: 20px;
   text-align: center;
@@ -52,7 +81,7 @@ main.page {
 }
 
 .form-section {
-  background-color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.95);
   padding: 20px;
   border: 1px solid #CCCCCC;
   border-radius: 10px;
@@ -75,9 +104,12 @@ form label span {
   margin-bottom: 4px;
 }
 
+/* Inputs */
 input[type="text"],
 input[type="password"],
-input[type="email"] {
+input[type="email"],
+input[type="number"],
+input[type="date"] {
   width: 100%;
   max-width: 400px;
   padding: 8px;
