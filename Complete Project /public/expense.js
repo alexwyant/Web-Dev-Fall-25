@@ -6,6 +6,15 @@ if (!currentUser) {
   window.location.href = "login.html";
 }
 
+// Optional logout button support
+const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+  });
+}
+
 expenseForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
@@ -15,8 +24,17 @@ expenseForm.addEventListener("submit", async function (event) {
     return;
   }
 
+  const userId = user.UserID || user.userID;
+
+  if (!userId) {
+    alert("No UserID found. Please log in again.");
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+    return;
+  }
+
   const expense = {
-    userID: user.UserID,
+    userID: userId,
     description: document.getElementById("description").value.trim(),
     amount: document.getElementById("amount").value,
     expenseDate: document.getElementById("expenseDate").value
@@ -35,20 +53,3 @@ expenseForm.addEventListener("submit", async function (event) {
       alert(data.message || "Expense save failed.");
       return;
     }
-
-    alert("Expense saved!");
-    expenseForm.reset();
-  } catch (err) {
-    console.error(err);
-    alert("Expense save failed. Open DevTools console to see the error.");
-  }
-});
-
-// Optional logout button support
-const logoutBtn = document.getElementById("logoutBtn");
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", () => {
-    localStorage.removeItem("user");
-    window.location.href = "login.html";
-  });
-}
